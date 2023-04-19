@@ -1,9 +1,10 @@
 import './App.css';
+import Input from './components/form/Input.js';
 
 function App() {
   return (
     <div className="App">
-      <h1>Novo Projeto React</h1>
+      <Input />
     </div>
   );
 }
