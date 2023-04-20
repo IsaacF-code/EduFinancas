@@ -1,9 +1,15 @@
+import Button from '../form/Button';
 import Input from '../form/Input';
 import styles from './ProjectForm.module.css';
 
-function ProjectForm(){
+function ProjectForm({ btnText }){
+    
+    const submit = (e) => {
+        e.preventDefault();
+    }
+    
     return (
-        <div className={styles.form}>
+        <form onSubmit={submit} className={styles.form}>
             <Input
                 type="text"
                 text="Entrada"
@@ -15,8 +21,11 @@ function ProjectForm(){
                 text="Valor"
                 name="valor"
                 placeholder="Digite o valor"
+            />
+            <Button 
+                btnText={btnText}
             />    
-        </div>
+        </form>
     )
 }
 

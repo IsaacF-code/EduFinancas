@@ -5,7 +5,9 @@ function Home(){
     return (
         <div className={styles.home_container}>
             <h1>Home</h1>
-            <ProjectForm />
+            <ProjectForm 
+                btnText="Salvar"
+            />
         </div>
     )
 }
