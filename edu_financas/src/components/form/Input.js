@@ -1,12 +1,14 @@
-function Input(){
+import styles from './Input.module.css';
+
+function Input({ text, type, name, placeholder }){
     return (
-       <div>
-        <label>Escreva</label>
-        <br />
+       <div className={styles.form_control}>
+        <label htmlFor={name}>{text}:</label>
         <input 
-         type="text"
-         name="name"
-         placeholder="Enter your name"
+         type={type}
+         name={name}
+         id={name}
+         placeholder={placeholder}
         />
        </div>
     )
