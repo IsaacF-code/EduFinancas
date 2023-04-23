@@ -1,8 +1,19 @@
-import Button from '../form/Button';
+// import { useState } from 'react';
+import Buttons from '../form/Buttons';
 import Input from '../form/Input';
 import styles from './ProjectForm.module.css';
 
 function ProjectForm({ btnText }){
+    // const [valor, setValor] = useState('');
+    
+    // const numberFormated = (e) =>{
+    //     const numeroFormatado = e.event.value !== '' ?
+    //     new Intl.NumberFormat('pt-BR', {
+    //         style: 'currency',
+    //         currency: 'BRL',
+    //     }).format(e.event.value) : '';
+    //     setValor(numeroFormatado);
+    // }
     
     const submit = (e) => {
         e.preventDefault();
@@ -22,8 +33,17 @@ function ProjectForm({ btnText }){
                 name="valor"
                 placeholder="Digite o valor"
             />
-            <Button 
+            {/* <Input 
+                type="number"
+                text="Valor"
+                name="valor"
+                placeholder="Digite o valor"
+                value={valor}
+                onChange={numberFormated}
+            /> */}
+            <Buttons 
                 btnText={btnText}
+                variant="success"
             />    
         </form>
     )
