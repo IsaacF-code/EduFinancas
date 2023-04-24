@@ -1,7 +1,7 @@
-import styles from './Buttons.module.css';
+import styles from './Buttom.module.css';
 import { Button } from 'react-bootstrap';
 
-function Buttons({ btnText, variant }){
+function Buttom({ btnText, variant }){
     return (
         <>
             <Button className={styles.btn} variant={variant}>{btnText}</Button>
@@ -9,4 +9,4 @@ function Buttons({ btnText, variant }){
     )
 }
 
-export default Buttons;
+export default Buttom;

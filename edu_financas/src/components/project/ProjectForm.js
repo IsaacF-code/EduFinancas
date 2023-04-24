@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Buttons from '../form/Buttons';
+import Buttom from '../form/Buttom';
 import Input from '../form/Input';
 import styles from './ProjectForm.module.css';
 
@@ -53,7 +53,7 @@ function ProjectForm({ btnText }){
                 handleOnChange={numberFormated}
             /> */}
 
-            <Buttons 
+            <Buttom 
                 btnText={btnText}
                 variant="success"
             />    
