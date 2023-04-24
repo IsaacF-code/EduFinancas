@@ -1,4 +1,4 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import Buttons from '../form/Buttons';
 import Input from '../form/Input';
 import styles from './ProjectForm.module.css';
@@ -14,6 +14,10 @@ function ProjectForm({ btnText }){
     //     }).format(e.event.value) : '';
     //     setValor(numeroFormatado);
     // }
+
+    const [entrada, setEntrada] = useState('');
+
+    const [valor, setValor] = useState('');
     
     const submit = (e) => {
         e.preventDefault();
@@ -26,21 +30,29 @@ function ProjectForm({ btnText }){
                 text="Entrada"
                 name="entrada"
                 placeholder="Digite a receita ou despesa"
+                value={entrada}
+                handleOnChange={e => setEntrada(e.target.value)}
             />
+            <span>{entrada}</span>
             <Input 
                 type="number"
                 text="Valor"
                 name="valor"
                 placeholder="Digite o valor"
+                value={valor}
+                handleOnChange={e => setValor(e.target.value)}
             />
+            <span>{valor}</span>
+
             {/* <Input 
                 type="number"
                 text="Valor"
                 name="valor"
                 placeholder="Digite o valor"
                 value={valor}
-                onChange={numberFormated}
+                handleOnChange={numberFormated}
             /> */}
+
             <Buttons 
                 btnText={btnText}
                 variant="success"

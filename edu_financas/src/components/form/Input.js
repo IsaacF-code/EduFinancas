@@ -1,6 +1,6 @@
 import styles from './Input.module.css';
 
-function Input({ text, type, name, placeholder, value, handleChange }){
+function Input({ text, type, name, placeholder, value, handleOnChange }){
     return (
        <div className={styles.form_control}>
         <label htmlFor={name}>{text}:</label>
@@ -10,8 +10,9 @@ function Input({ text, type, name, placeholder, value, handleChange }){
          id={name}
          placeholder={placeholder}
          value={value}
-         onChange={handleChange}
+         onChange={handleOnChange}
         />
+        
        </div>
     )
 }
