@@ -1,4 +1,4 @@
-import styles from './Buttom.module.css';
+import styles from './FormButton.module.css';
 import { Button } from 'react-bootstrap';
 
 function Buttom({ btnText, variant }){

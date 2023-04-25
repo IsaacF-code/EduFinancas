@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import Buttom from '../form/Buttom';
-import Input from '../form/Input';
+import FormButton from '../form/FormButton.js';
+import FormInput from '../form/FormInput.js';
 import styles from './ProjectForm.module.css';
+// import ItemTable from '../form/ItemTable';
+import FormTable from '../form/FormTable.js';
 
 function ProjectForm({ btnText }){
     // const [valor, setValor] = useState('');
@@ -25,7 +27,7 @@ function ProjectForm({ btnText }){
     
     return (
         <form onSubmit={submit} className={styles.form}>
-            <Input
+            <FormInput
                 type="text"
                 text="Entrada"
                 name="entrada"
@@ -34,7 +36,7 @@ function ProjectForm({ btnText }){
                 handleOnChange={e => setEntrada(e.target.value)}
             />
             <span>{entrada}</span>
-            <Input 
+            <FormInput 
                 type="number"
                 text="Valor"
                 name="valor"
@@ -44,7 +46,7 @@ function ProjectForm({ btnText }){
             />
             <span>{valor}</span>
 
-            {/* <Input 
+            {/* <FormInput 
                 type="number"
                 text="Valor"
                 name="valor"
@@ -52,8 +54,16 @@ function ProjectForm({ btnText }){
                 value={valor}
                 handleOnChange={numberFormated}
             /> */}
+            
+            <FormTable 
+                border="bordered"
+                striped="striped"
+                hover="hover"
+            />
 
-            <Buttom 
+            {/* <ItemTable /> */}
+
+            <FormButton 
                 btnText={btnText}
                 variant="success"
             />    
