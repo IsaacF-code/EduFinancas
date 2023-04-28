@@ -1,9 +1,11 @@
 import { useId } from 'react';
 import styles from './FormInput.module.css';
+import CurrencyInput from 'react-currency-input-field';
 
 function Input({ label, type, name, placeholder, value, handleOnChange }){
     const id = useId();
     return (
+       <>
        <div className={styles.form_control}>
         <label htmlFor={id}>{label}:</label>
         <input 
@@ -16,6 +18,8 @@ function Input({ label, type, name, placeholder, value, handleOnChange }){
         />
         
        </div>
+       <CurrencyInput />
+       </>
     )
 }
 
