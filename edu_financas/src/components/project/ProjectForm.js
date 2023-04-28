@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FormButton from '../form/FormButton.js';
 import FormInput from '../form/FormInput.js';
 import styles from './ProjectForm.module.css';
-// import ItemTable from '../form/ItemTable';
 import FormTable from '../form/FormTable.js';
 
-function ProjectForm({ btnText }){
+function ProjectForm(){
     // const [valor, setValor] = useState('');
     
     // const numberFormated = (e) =>{
@@ -17,19 +16,48 @@ function ProjectForm({ btnText }){
     //     setValor(numeroFormatado);
     // }
 
-    const [entrada, setEntrada] = useState('');
+    const data = [
+        { id: 0, name: 'Isaac', email: 'isaac@email.com' },
+        { id: 1, name: 'Freires', email: 'freires@email.com' }, 
+        { id: 2, name: 'Half', email: 'half@email.com' }
+    ];
 
-    const [valor, setValor] = useState('');
-    
-    const submit = (e) => {
+
+    const [entrada, setEntrada] = useState('');
+    const [email, setEmail] = useState('');
+    const [usuario, setUsuario] = useState({id: '', name: null, email: null})
+    const [lista, setLista] = useState([...data])
+
+    useEffect(() => {
+        if(usuario.id !== null){
+            return
+        }
+
+        setLista(lista => {return [...lista, usuario]})
+        setEntrada('');
+        setEmail('');
+    }, [usuario])
+
+    const handlerClick = (e) => {
         e.preventDefault();
+        
+        let camposComValores = entrada.length > 0 && email.length > 0;
+        if (camposComValores) {
+            let novoUsuario = {
+                id: 999, entrada, email
+            };
+            setUsuario(novoUsuario);
+        }
     }
+
+    console.log(handlerClick);
     
     return (
-        <form onSubmit={submit} className={styles.form}>
+        <>
+        
             <FormInput
                 type="text"
-                text="Entrada"
+                label="Entrada"
                 name="entrada"
                 placeholder="Digite a receita ou despesa"
                 value={entrada}
@@ -37,14 +65,14 @@ function ProjectForm({ btnText }){
             />
             <span>{entrada}</span>
             <FormInput 
-                type="number"
-                text="Valor"
-                name="valor"
-                placeholder="Digite o valor"
-                value={valor}
-                handleOnChange={e => setValor(e.target.value)}
+                type="text"
+                label="E-mail"
+                name="email"
+                placeholder="Digite o email"
+                value={email}
+                handleOnChange={e => setEmail(e.target.value)}
             />
-            <span>{valor}</span>
+            <span>{email}</span>
 
             {/* <FormInput 
                 type="number"
@@ -54,20 +82,20 @@ function ProjectForm({ btnText }){
                 value={valor}
                 handleOnChange={numberFormated}
             /> */}
-            
-            <FormTable 
-                border="bordered"
-                striped="striped"
-                hover="hover"
-            />
-
-            {/* <ItemTable /> */}
 
             <FormButton 
-                btnText={btnText}
+                btnText="Salvar"
                 variant="success"
+                click={e => handlerClick(e)}
             />    
-        </form>
+        
+        <FormTable 
+            bordered="bordered"
+            striped="striped"
+            hover="hover"
+            data={lista}
+        />
+    </>
     )
 }
 

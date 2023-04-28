@@ -1,13 +1,15 @@
+import { useId } from 'react';
 import styles from './FormInput.module.css';
 
-function Input({ text, type, name, placeholder, value, handleOnChange }){
+function Input({ label, type, name, placeholder, value, handleOnChange }){
+    const id = useId();
     return (
        <div className={styles.form_control}>
-        <label htmlFor={name}>{text}:</label>
+        <label htmlFor={id}>{label}:</label>
         <input 
+         id={id}
          type={type}
          name={name}
-         id={name}
          placeholder={placeholder}
          value={value}
          onChange={handleOnChange}
