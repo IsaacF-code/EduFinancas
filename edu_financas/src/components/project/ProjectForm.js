@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { v4 as uuid } from 'uuid';
 import FormButton from '../form/FormButton.js';
 import FormInput from '../form/FormInput.js';
 import styles from './ProjectForm.module.css';
@@ -25,11 +26,11 @@ function ProjectForm(){
 
     const [entrada, setEntrada] = useState('');
     const [email, setEmail] = useState('');
-    const [usuario, setUsuario] = useState({id: '', name: null, email: null})
+    const [usuario, setUsuario] = useState({id: null, name: null, email: null})
     const [lista, setLista] = useState([...data])
 
     useEffect(() => {
-        if(usuario.id !== null){
+        if(usuario.id === null){
             return
         }
 
@@ -44,17 +45,15 @@ function ProjectForm(){
         let camposComValores = entrada.length > 0 && email.length > 0;
         if (camposComValores) {
             let novoUsuario = {
-                id: 999, entrada, email
+                id: uuid(), name: entrada, email
             };
             setUsuario(novoUsuario);
         }
     }
-
-    console.log(handlerClick);
     
     return (
         <>
-        
+        <form className={styles.form}>
             <FormInput
                 type="text"
                 label="Entrada"
@@ -88,7 +87,7 @@ function ProjectForm(){
                 variant="success"
                 click={e => handlerClick(e)}
             />    
-        
+        </form>
         <FormTable 
             bordered="bordered"
             striped="striped"
