@@ -1,10 +1,12 @@
 import './App.css';
-import Home from './components/pages/Home';
+import Home from './components/pages/Home.js';
+import Categoria from './components/pages/Categoria.js'
 
 function App() {
   return (
     <div className="App">
-      <Home /> 
+      <Home />
+      <Categoria />   
     </div>
   );
 }
