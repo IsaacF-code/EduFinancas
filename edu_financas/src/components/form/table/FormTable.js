@@ -7,11 +7,11 @@ function FormTable({ striped, bordered, hover, size, variant, data }) {
     const colunm = Object.keys(data[0]).filter((colunm) => colunm !== "id");
 
     const itemTable = data.map((value) => (
-        <ItemTable key={value.id} name={value.name} email={value.email} valor={value.valor} />
+        <ItemTable key={value.id} name={value.entrada} email={value.email} valor={value.valor} />
     ));
     
     const novosNomes = {
-        name: "Nome",
+        entrada: "Nome",
         email: "E-mail"
     };
 

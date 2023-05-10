@@ -4,11 +4,13 @@ import { useState } from 'react';
 import FormInput from './inputs/FormInput.js'
 import FormInputCurrency from './inputs/FormInputCurrency.js';
 
-function FormModal({ title, clickSave, value, value1, value2, handleOnChange, handleOnChange1, handleOnChange2 }) {
+function FormModal({ title, clickSave, value, handleOnChange }) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const {entrada, email, valor} = value || {};
 
     return(
         <>
@@ -30,30 +32,22 @@ function FormModal({ title, clickSave, value, value1, value2, handleOnChange, ha
                     label="Entrada"
                     name="entrada"
                     placeholder="Digite a receita ou despesa"
-                    value={value}
-                    handleOnChange={handleOnChange}
-                // value={entrada}
-                // handleOnChange={e => setEntrada(e.target.value)}
+                    value={entrada}
+                    handleOnChange={e => handleOnChange({...value, entrada: e.target.value})}
                 />
-                {/* <span>{entrada}</span> */}
                 <FormInput 
                     type="text"
                     label="E-mail"
                     name="email"
                     placeholder="Digite o email"
-                    value={value}
-                    handleOnChange={handleOnChange}
-                    //value={email}
-                    //handleOnChange={e => setEmail(e.target.value)}
+                    value={email}
+                    handleOnChange={e => handleOnChange({...value, email: e.target.value})} 
                 />
-                {/* <span>{email}</span> */}
-
                 <FormInputCurrency 
                     label="Valor"
-                    value={value}
-                    handleOnChange={handleOnChange}
-                    //value={valor}
-                    //handleOnChange={e => setValor(e.target.value)}
+                    name="valor"
+                    value={valor}
+                    handleOnChange={e => handleOnChange({...value, valor: e.target.value})}
                 />
                 </Modal.Body>
                 <Modal.Footer>

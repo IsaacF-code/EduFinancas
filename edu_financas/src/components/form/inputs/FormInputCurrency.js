@@ -4,7 +4,7 @@ import InputMask from "react-input-mask";
 import { MaskCurrency } from './MaskCurrency';
 
 
-function FormInputCurrency({ label, value, handleOnChange }){
+function FormInputCurrency({ label, name, value, handleOnChange }){
     const id = useId();
     return(
         <div className={styles.form_control}>
@@ -12,6 +12,7 @@ function FormInputCurrency({ label, value, handleOnChange }){
             <InputMask 
                 id={id}
                 mask="R$ 99999999999"
+                name={name}
                 alwaysShowMask={false}
                 beforeMaskedStateChange={MaskCurrency}
                 value={value}
