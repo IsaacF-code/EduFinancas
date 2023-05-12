@@ -66,7 +66,39 @@ function ProjectForm(){
         } 
        
     }
+
+    const handleEdit = (listaEdit) => {
+        const pegaIdLista = lista.map(item => {
+            if(item.id === listaEdit.id){
+                return listaEdit;
+            } else {
+                return item;
+            }
+        })
+        setLista(pegaIdLista);
+    }
+
+    const [showModalConfirm, setShowModalConfirm] = useState(false); // useState para abrir/fechar modal
+    const [itemDelete, setItemDelete] = useState(null) // useState para pegar o item que será deletado
+
+     const handleItemDelete = (item) => { // função para pegar o item que será deletado
+        setItemDelete(item);
+        setShowModalConfirm(true);
+        console.log("setItemDelete: ", item);
+    }
+
+    const handleDelete = () =>{ // função para deletar o item
+        const item = lista.find((item) => item.id === itemDelete);
+        if(item){
+            const pegaIdLista = lista.filter((item) => item.id !== itemDelete);
+            setLista(pegaIdLista);
+            //console.log("setLista: ", pegaIdLista)
+        }
+        setShowModalConfirm(false);
+    }
     
+    //console.log(handleDelete);
+
     return (
         <>
         <form className={styles.form}>
@@ -76,6 +108,8 @@ function ProjectForm(){
             striped="striped"
             hover="hover"
             data={lista}
+            onEdit={handleEdit}
+            onDelete={handleItemDelete}
         />
         <FormModal 
             title="Nova entrada"
@@ -84,8 +118,10 @@ function ProjectForm(){
             clickSave={e => handlerClick(e)}
         />
         <FormModalConfirm 
-            title="Deseja apagar {nome} ?"
-            clickSave={() => console.log("Clicou")}
+            title={`Deseja apagar ${itemDelete}?`}
+            showModal={showModalConfirm}
+            closeModal={() => setShowModalConfirm(false)}
+            clickSave={handleDelete}
         />
 
         <FormSelect 

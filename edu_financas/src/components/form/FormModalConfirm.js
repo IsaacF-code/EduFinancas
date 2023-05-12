@@ -1,33 +1,21 @@
 import { Modal } from 'react-bootstrap';
 import FormButton from './FormButton.js';
-import { useState } from 'react';
 
-function FormModalConfirm({ title, clickSave }) {
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
+function FormModalConfirm({ title, clickSave, showModal, closeModal }) {
     return(
         <>
-            <FormButton 
-                btnText="Abrir modal"
-                variant="primary"
-                click={handleShow}    
-            /> 
-
-            <Modal show={show} onHide={handleClose} backdrop="static" centered>
+            <Modal show={showModal} onHide={closeModal} backdrop="static" centered>
                 <Modal.Header>
                     <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Footer>
                     <FormButton 
-                        btnText="Fechar"
+                        btnText="Não"
                         variant="secondary"
-                        click={handleClose}
+                        click={closeModal}
                     />
                     <FormButton 
-                        btnText="Salvar"
+                        btnText="Sim"
                         variant="success"
                         click={clickSave}
                     />

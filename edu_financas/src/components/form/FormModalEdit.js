@@ -4,25 +4,12 @@ import { useState } from 'react';
 import FormInput from './inputs/FormInput.js'
 import FormInputCurrency from './inputs/FormInputCurrency.js';
 
-function FormModal({ title, clickSave, value, handleOnChange, handleOnEdit}) {
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
+function FormModalEdit({ title, clickSave, value, handleOnEdit, showModal, closeModal}) {
     const {entrada, email, valor} = value || {};
 
     return(
         <>
-           <div style={{marginBottom: '20px'}}>
-           <FormButton 
-                btnText="Nova entrada"
-                variant="primary"
-                click={handleShow}    
-            /> 
-           </div>
-
-            <Modal show={show} onHide={handleClose} backdrop="static" centered>
+            <Modal show={showModal} onHide={closeModal} backdrop="static" centered>
                 <Modal.Header>
                     <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
@@ -33,8 +20,7 @@ function FormModal({ title, clickSave, value, handleOnChange, handleOnEdit}) {
                     name="entrada"
                     placeholder="Digite a receita ou despesa"
                     value={entrada}
-                    //handleOnEdit={e => {handleOnEdit({...value, entrada: e.target.value})}} 
-                    handleOnChange={e => handleOnChange({...value, entrada: e.target.value})}
+                    handleOnChange={e => {handleOnEdit({...value, entrada: e.target.value})}} 
                 />
                 <FormInput 
                     type="text"
@@ -42,22 +28,20 @@ function FormModal({ title, clickSave, value, handleOnChange, handleOnEdit}) {
                     name="email"
                     placeholder="Digite o email"
                     value={email}
-                    //handleOnEdit={e => {handleOnEdit({...value, email: e.target.value})}}
-                    handleOnChange={e => handleOnChange({...value, email: e.target.value})} 
+                    handleOnChange={e => {handleOnEdit({...value, email: e.target.value})}}
                 />
                 <FormInputCurrency 
                     label="Valor"
                     name="valor"
                     value={valor}
-                    //handleOnEdit={e => {handleOnEdit({...value, valor: e.target.value})}}
-                    handleOnChange={e => handleOnChange({...value, valor: e.target.value})}
+                    handleOnChange={e => {handleOnEdit({...value, valor: e.target.value})}}
                 />
                 </Modal.Body>
                 <Modal.Footer>
                     <FormButton 
                         btnText="Fechar"
                         variant="secondary"
-                        click={handleClose}
+                        click={closeModal}
                     />
                     <FormButton 
                         btnText="Salvar"
@@ -70,4 +54,4 @@ function FormModal({ title, clickSave, value, handleOnChange, handleOnEdit}) {
     )
 }
 
-export default FormModal;
+export default FormModalEdit;
