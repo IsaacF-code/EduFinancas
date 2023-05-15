@@ -99,7 +99,6 @@ function ProjectForm(){
      const handleItemDelete = (item) => { // função para pegar o item que será deletado
         setItemDelete(item);
         setShowModalConfirm(true);
-        console.log("setItemDelete: ", item);
     }
 
     const handleDelete = () =>{ // função para deletar o item
