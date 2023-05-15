@@ -5,6 +5,7 @@ import FormTable from '../form/table/FormTable.js';
 import FormModal from '../form/FormModal.js';
 import FormModalConfirm from '../form/FormModalConfirm.js';
 import FormSelect from '../form/FormSelect';
+import FormModalEdit from '../form/FormModalEdit';
 
 function ProjectForm(){
 
@@ -25,7 +26,7 @@ function ProjectForm(){
     // ------
 
     const data = [
-        { id: 0, entrada: 'Isaac', email: 'isaac@email.com', valor: 10.00 },
+        { id: 0, entrada: 'Isaac', email: 'isaac@email.com', valor: 10 },
         { id: 1, entrada: 'Freires', email: 'freires@email.com', valor: 20 }, 
         { id: 2, entrada: 'Half', email: 'half@email.com', valor: 30 }
     ];
@@ -67,17 +68,31 @@ function ProjectForm(){
        
     }
 
-    const handleEdit = (listaEdit) => {
+    // ----------------- Edit -----------------
+    
+    const [showModalEdit, setShowModalEdit] = useState(false); // useState para abrir/fechar modal
+    const [itemEdit, setItemEdit] = useState(null) // useState para pegar o item que será editado
+
+    const handleItemEdit = (item) => {
+        setItemEdit((prevItem) => ({ ...prevItem, ...item }));
+        setShowModalEdit(true); 
+    }
+
+    const handleEdit = () => { 
         const pegaIdLista = lista.map(item => {
-            if(item.id === listaEdit.id){
-                return listaEdit;
+            if(item.id === itemEdit.id){
+                return itemEdit;
             } else {
                 return item;
             }
         })
+        itemEdit.valor = itemEdit.valor.replace("R$", "");
         setLista(pegaIdLista);
+        setShowModalEdit(false);
     }
 
+    // ------------ Delete ------------
+    
     const [showModalConfirm, setShowModalConfirm] = useState(false); // useState para abrir/fechar modal
     const [itemDelete, setItemDelete] = useState(null) // useState para pegar o item que será deletado
 
@@ -88,16 +103,10 @@ function ProjectForm(){
     }
 
     const handleDelete = () =>{ // função para deletar o item
-        const item = lista.find((item) => item.id === itemDelete);
-        if(item){
-            const pegaIdLista = lista.filter((item) => item.id !== itemDelete);
+            const pegaIdLista = lista.filter((item) => item.id !== itemDelete.id);
             setLista(pegaIdLista);
-            //console.log("setLista: ", pegaIdLista)
-        }
         setShowModalConfirm(false);
     }
-    
-    //console.log(handleDelete);
 
     return (
         <>
@@ -108,7 +117,7 @@ function ProjectForm(){
             striped="striped"
             hover="hover"
             data={lista}
-            onEdit={handleEdit}
+            onEdit={handleItemEdit}
             onDelete={handleItemDelete}
         />
         <FormModal 
@@ -117,8 +126,19 @@ function ProjectForm(){
             handleOnChange={setFormValue}
             clickSave={e => handlerClick(e)}
         />
+        <FormModalEdit 
+            title="Editar entrada"
+            value={itemEdit}
+            handleOnEdit={handleItemEdit}
+            showModal={showModalEdit}
+            closeModal={() => setShowModalEdit(false)}
+            clickSave={() => {
+                handleEdit()
+                
+            }}
+        />
         <FormModalConfirm 
-            title={`Deseja apagar ${itemDelete}?`}
+            title={`Deseja apagar ${itemDelete?.entrada}?`}
             showModal={showModalConfirm}
             closeModal={() => setShowModalConfirm(false)}
             clickSave={handleDelete}

@@ -1,10 +1,9 @@
 import { Modal } from 'react-bootstrap';
 import FormButton from './FormButton.js';
-import { useState } from 'react';
 import FormInput from './inputs/FormInput.js'
 import FormInputCurrency from './inputs/FormInputCurrency.js';
 
-function FormModalEdit({ title, clickSave, value, handleOnEdit, showModal, closeModal}) {
+function FormModalEdit({ title, clickSave, handleOnEdit, showModal, closeModal, value}) {
     const {entrada, email, valor} = value || {};
 
     return(
@@ -19,22 +18,23 @@ function FormModalEdit({ title, clickSave, value, handleOnEdit, showModal, close
                     label="Entrada"
                     name="entrada"
                     placeholder="Digite a receita ou despesa"
-                    value={entrada}
-                    handleOnChange={e => {handleOnEdit({...value, entrada: e.target.value})}} 
+                    defaultValue={entrada}
+                    handleOnChange={e => handleOnEdit({entrada: e.target.value})}
                 />
                 <FormInput 
                     type="text"
                     label="E-mail"
                     name="email"
                     placeholder="Digite o email"
-                    value={email}
-                    handleOnChange={e => {handleOnEdit({...value, email: e.target.value})}}
+                    defaultValue={email}
+                    handleOnChange={e => handleOnEdit({email: e.target.value})}
+
                 />
                 <FormInputCurrency 
                     label="Valor"
                     name="valor"
-                    value={valor}
-                    handleOnChange={e => {handleOnEdit({...value, valor: e.target.value})}}
+                    defaultValue={valor}
+                    handleOnChange={e => handleOnEdit({valor: e.target.value})}
                 />
                 </Modal.Body>
                 <Modal.Footer>

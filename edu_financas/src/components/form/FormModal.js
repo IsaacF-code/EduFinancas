@@ -4,7 +4,7 @@ import { useState } from 'react';
 import FormInput from './inputs/FormInput.js'
 import FormInputCurrency from './inputs/FormInputCurrency.js';
 
-function FormModal({ title, clickSave, value, handleOnChange, handleOnEdit}) {
+function FormModal({ title, clickSave, value, handleOnChange}) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -33,7 +33,6 @@ function FormModal({ title, clickSave, value, handleOnChange, handleOnEdit}) {
                     name="entrada"
                     placeholder="Digite a receita ou despesa"
                     value={entrada}
-                    //handleOnEdit={e => {handleOnEdit({...value, entrada: e.target.value})}} 
                     handleOnChange={e => handleOnChange({...value, entrada: e.target.value})}
                 />
                 <FormInput 
@@ -42,14 +41,12 @@ function FormModal({ title, clickSave, value, handleOnChange, handleOnEdit}) {
                     name="email"
                     placeholder="Digite o email"
                     value={email}
-                    //handleOnEdit={e => {handleOnEdit({...value, email: e.target.value})}}
                     handleOnChange={e => handleOnChange({...value, email: e.target.value})} 
                 />
                 <FormInputCurrency 
                     label="Valor"
                     name="valor"
                     value={valor}
-                    //handleOnEdit={e => {handleOnEdit({...value, valor: e.target.value})}}
                     handleOnChange={e => handleOnChange({...value, valor: e.target.value})}
                 />
                 </Modal.Body>

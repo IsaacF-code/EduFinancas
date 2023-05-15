@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import styles from './FormInput.module.css';
 
-function Input({ label, type, name, placeholder, value, handleOnChange }){
+function Input({ label, type, name, placeholder, value, defaultValue, handleOnChange }){
     const id = useId();
     return (
        <>
@@ -13,6 +13,7 @@ function Input({ label, type, name, placeholder, value, handleOnChange }){
          name={name}
          placeholder={placeholder}
          value={value}
+         defaultValue={defaultValue}
          onChange={handleOnChange}
         />
        </div>

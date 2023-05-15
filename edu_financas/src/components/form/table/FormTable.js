@@ -27,7 +27,7 @@ function FormTable({ striped, bordered, hover, size, variant, data, onEdit, onDe
             name={value.entrada} 
             email={value.email} 
             valor={value.valor} 
-            data={value.id} 
+            data={value} 
             onEdit={onEdit} 
             onDelete={onDelete} 
         />
