@@ -14,9 +14,9 @@ function FormModalEditCategory({ title, clickSave, handleOnEdit, showModal, clos
                 <Modal.Body>
                 <FormInput
                     type="text"
-                    label="Entrada"
-                    name="entrada"
-                    placeholder="Digite a receita ou despesa"
+                    label="Categoria"
+                    name="name"
+                    placeholder="Digite a categoria"
                     defaultValue={name}
                     handleOnChange={e => handleOnEdit({name: e.target.value})}
                 />

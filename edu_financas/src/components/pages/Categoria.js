@@ -69,7 +69,7 @@ function Categoria(){
     const [categoryEdit, setCategoryEdit] = useState(null);
 
     const handleCategoryEdit = (category) => {
-        setCategoryEdit(category);
+        setCategoryEdit((prevState) => ({ ...prevState, ...category}));
         setShowModalEdit(true);
     }
 
@@ -141,7 +141,7 @@ function Categoria(){
             <FormModalEditCategory 
                 title="Editar categoria"
                 value={categoryEdit}
-                handleOnChange={setCategoryEdit}
+                handleOnEdit={handleCategoryEdit}
                 showModal={showModalEdit}
                 closeModal={() => setShowModalEdit(false)}
                 clickSave={handleEdit}
