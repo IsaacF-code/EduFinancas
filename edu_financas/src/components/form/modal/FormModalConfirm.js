@@ -1,5 +1,5 @@
 import { Modal } from 'react-bootstrap';
-import FormButton from './FormButton.js';
+import FormButton from '../button/FormButton.js';
 
 function FormModalConfirm({ title, clickSave, showModal, closeModal }) {
     return(

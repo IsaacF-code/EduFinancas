@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import styles from './ProjectForm.module.css';
 import FormTable from '../form/table/FormTable.js';
-import FormModal from '../form/FormModal.js';
-import FormModalConfirm from '../form/FormModalConfirm.js';
-import FormSelect from '../form/FormSelect';
-import FormModalEdit from '../form/FormModalEdit';
+import FormModal from '../form/modal/FormModal.js';
+import FormModalConfirm from '../form/modal/FormModalConfirm.js';
+import FormSelect from '../form/select/FormSelect.js';
+import FormModalEdit from '../form/modal/FormModalEdit.js';
 
 function ProjectForm(){
 
@@ -64,7 +64,9 @@ function ProjectForm(){
             };
             novoUsuario.valor = novoUsuario.valor.replace("R$", "");
             setUsuario(novoUsuario);
-        } 
+       } else {
+            alert("Preencha todos os campos!");
+        }
        
     }
 
@@ -131,10 +133,7 @@ function ProjectForm(){
             handleOnEdit={handleItemEdit}
             showModal={showModalEdit}
             closeModal={() => setShowModalEdit(false)}
-            clickSave={() => {
-                handleEdit()
-                
-            }}
+            clickSave={() => handleEdit()}
         />
         <FormModalConfirm 
             title={`Deseja apagar ${itemDelete?.entrada}?`}

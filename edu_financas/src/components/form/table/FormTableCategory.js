@@ -1,7 +1,7 @@
 import { Table } from "react-bootstrap";
-import ItemTable from "./ItemTable.js";
+import ItemTableCategory from "./ItemTableCategory.js";
 
-function FormTable({ striped, bordered, hover, size, variant, data, onEdit, onDelete }) {
+function FormTableCategory({ striped, bordered, hover, size, variant, data, onEdit, onDelete }) {
     // Mapeia o array de objetos e retorna um array com os nomes das colunas
     // excluindo o id
     const colunm = Object.keys(data[0] || {}).filter((colunm) => colunm !== "id");
@@ -9,8 +9,7 @@ function FormTable({ striped, bordered, hover, size, variant, data, onEdit, onDe
     // Mapeia as colunas e retorna um th com o nome da coluna
     // Caso o nome da coluna não esteja no objeto novosNomes, retorna o nome da coluna com a primeira letra maiúscula
     const novosNomes = {
-        entrada: "Nome",
-        email: "E-mail"
+        name: "Categoria"
     };
 
     const colunmTable = colunm.map((key) => (
@@ -22,11 +21,9 @@ function FormTable({ striped, bordered, hover, size, variant, data, onEdit, onDe
     // -------
 
     const itemTable = data.map((value) => (
-        <ItemTable 
+        <ItemTableCategory
             key={value.id} 
-            name={value.entrada} 
-            email={value.email} 
-            valor={value.valor} 
+            name={value.name}  
             data={value} 
             onEdit={onEdit} 
             onDelete={onDelete} 
@@ -60,4 +57,4 @@ function FormTable({ striped, bordered, hover, size, variant, data, onEdit, onDe
     )
 }
 
-export default FormTable;
+export default FormTableCategory;

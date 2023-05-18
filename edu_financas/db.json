@@ -1,28 +1,30 @@
 {
-    "entrys": [
-        {
-            "id": "0",
-            "name": "Receita"
-        },
-        {
-            "id": "1",
-            "name": "Despesa"
-        }
-    ],
-
-    "categories": [
-        {
-            "id": "0",
-            "name": "Essenciais"
-        },
-        {
-            "id": "1",
-            "name": "Lazer"
-        },
-        {
-            "id": "2",
-            "name": "Metas"
-        }
-        
-    ]
+  "entrys": [
+    {
+      "id": "0",
+      "name": "Receita"
+    },
+    {
+      "id": "1",
+      "name": "Despesa"
+    }
+  ],
+  "categories": [
+    {
+      "id": "0",
+      "name": "Essenciais"
+    },
+    {
+      "id": "1",
+      "name": "Lazer"
+    },
+    {
+      "id": "2",
+      "name": "Metas"
+    },
+    {
+      "id": "313797ce-8274-4520-a246-fa127acb8d59",
+      "name": "teste"
+    }
+  ]
 }
