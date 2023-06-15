@@ -13,7 +13,7 @@ function ProjectForm(){
     const [entradas, setEntradas] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/entrys', {
+        fetch('http://localhost:5000/type', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

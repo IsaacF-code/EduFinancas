@@ -2,14 +2,15 @@ import { Modal } from 'react-bootstrap';
 import FormButton from '../button/FormButton.js';
 import { useState } from 'react';
 import FormInput from '../inputs/FormInput.js'
+import  FormSelect  from '../select/FormSelect.js';
 
-function FormModalCategory({ title, clickSave, value, handleOnChange}) {
+function FormModalCategory({ title, clickSave, value, options, handleOnChange}) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const {name} = value || {name: ''};
+    const {name} = value || {name: ''}; // se value for nulo, o name será nulo
 
     return(
         <>
@@ -29,10 +30,15 @@ function FormModalCategory({ title, clickSave, value, handleOnChange}) {
                 <FormInput
                     type="text"
                     label="Categoria"
-                    name="entrada"
+                    name="name"
                     placeholder="Digite uma nova categoria"
                     value={name}
                     handleOnChange={e => handleOnChange({...value, name: e.target.value})}
+                />
+                <FormSelect
+                    label="Tipo"
+                    name="tipo"
+                    options={options}
                 />
                 </Modal.Body>
                 <Modal.Footer>

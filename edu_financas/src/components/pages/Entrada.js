@@ -1,31 +1,30 @@
 import { useEffect, useState } from 'react';
-import FormModalCategory from '../form/modal/FormModalCategory.js';
 import styles from './Home.module.css';
 import { v4 as uuid } from 'uuid';
-import FormTableCategory from '../form/table/FormTableCategory.js';
 import FormModalConfirm from '../form/modal/FormModalConfirm.js';
 import FormModalEditCategory from '../form/modal/FormModalEditCategory.js';
+import FormTableEntry from '../form/table/FormTableEntry.js';
+import FormModalEntry from '../form/modal/FormModalEntry.js';
+import FormDropdown from '../form/FormDropdown.js';
 
-function Categoria(){
-    // State para pegar as categorias
+function Entrada(){
 
-    const [categories, setCategories] = useState([]);
+    const [entrys, setEntrys] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/categories', {
+        fetch('http://localhost:5000/entrys', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             },
         })
-        .then((res) => res.json()).then((data) => setCategories(data))
+        .then((res) => res.json()).then((data) => setEntrys(data))
         .catch((err) => console.log(err));
     }, []);
 
-    // --------------------------------------------------------------------
-    // State para pegar os tipos de categoria
+ // --------------------------------------------------------------------
 
-    const [type, setType] = useState([])
+ const [type, setType] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:5000/type', {
@@ -40,8 +39,46 @@ function Categoria(){
 
  // --------------------------------------------------------------------
 
-    const [categoryName, setCategoryName] = useState({ name: '' });
+ const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/categories', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then((res) => res.json()).then((data) => setCategories(data))
+        .catch((err) => console.log(err));
+    }, []);
+
+ // --------------------------------------------------------------------
+
+//  const [store, setStore] = useState([]);
+
+//     useEffect(() => {
+//         fetch('http://localhost:5000/store', {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//         })
+//         .then((res) => res.json()).then((data) => setStore(data))
+//         .catch((err) => console.log(err));
+//     }, []);
+
+ // --------------------------------------------------------------------
+
+    const [entryName, setEntryName] = useState({ 
+        name: '',
+        valor: undefined, 
+        tipo: '', 
+        estabelecimento: '', 
+        categoria: ''
+    });
     const [aoClick, setAoClick] = useState(false); // variável para executar o useEffect quando clicar no botão salvar
+
+
 
     useEffect(() => { // useEffect para salvar no banco de dados
         if(aoClick){
@@ -50,26 +87,26 @@ function Categoria(){
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(categoryName)
+                body: JSON.stringify(entryName)
             })
             .then((res) => res.json()).then((data) => {
-                setCategories([...categories, data]); // atualiza o estado com o novo dado
-                setCategoryName('');
+                setEntrys([...entrys, data]); // atualiza o estado com o novo dado
+                setEntryName('');
                 setAoClick(false);
             })
             .catch((err) => console.log(err));
         }   
-    }, [categories, aoClick, categoryName])
+    }, [entrys, aoClick, entryName])
 
     const handlerClick = (e) => {
         e.preventDefault();
             
-        let camposComValores = categoryName.name.length > 0;
+        let camposComValores = entryName.name.length > 0 && entryName.valor.length > 0;
         if (camposComValores) {
             let novaCategoria = {
-                id: uuid(), name: categoryName.name
+                id: uuid(), name: entryName.name // --------------------
             };
-            setCategoryName(novaCategoria);
+            setEntryName(novaCategoria);
             setAoClick(true); // seta a variável para true para executar o useEffect
         } else {
             alert('Preencha todos os campos!');
@@ -97,14 +134,14 @@ function Categoria(){
           })
             .then((resp) => resp.json())
             .then((data) => {
-                const pegaIdLista = categories.map(item => {
+                const pegaIdLista = entrys.map(item => {
                     if(item.id === categoryEdit.id){
                         return categoryEdit;
                     } else {
                         return item;
                     }
                 })
-                setCategories(pegaIdLista)
+                setEntrys(pegaIdLista)
             })
         setShowModalEdit(false);
     }
@@ -129,27 +166,39 @@ function Categoria(){
           })
             .then((resp) => resp.json())
             .then((data) => {
-              setCategories(categories.filter((category) => category.id !== categoryDelete.id))
+                setEntrys(entrys.filter((category) => category.id !== categoryDelete.id))
             })
             setShowModalConfirm(false);
         }
    
+    // ------------------------------------------------------------
+    const [showModal, setShowModal] = useState(false);
+    
+    const handleEntry = () => {
+        setShowModal(true);
+    }
 
     return (
         <div className={styles.home_container}>
-            <h1>Categorias</h1>
-            <FormModalCategory
-                title="Cadastrar categoria" 
-                options={type}
-                value={categoryName}
-                handleOnChange={setCategoryName}
+            <h1>Entradas</h1>
+            <FormModalEntry
+                title="Cadastrar entrada" 
+                value={entryName}
+                typeOption={type}
+                categoryOption={categories}
+                showModal={showModal}
+                closeModal={() => setShowModal(false)}
+                handleOnChange={handleEntry}
                 clickSave={(e) => handlerClick(e)}
             />
-            <FormTableCategory
+            <FormDropdown 
+                clickR={handleEntry}
+            />
+            <FormTableEntry
                 bordered="bordered"
                 striped="striped"
                 hover="hover"
-                data={categories}
+                data={entrys}
                 onEdit={handleCategoryEdit}
                 onDelete={handleCategoryDelete}
             />
@@ -171,4 +220,4 @@ function Categoria(){
     )
 }
 
-export default Categoria;
+export default Entrada;

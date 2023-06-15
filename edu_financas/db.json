@@ -1,5 +1,5 @@
 {
-  "entrys": [
+  "type": [
     {
       "id": "0",
       "name": "Receita"
@@ -9,22 +9,40 @@
       "name": "Despesa"
     }
   ],
+  "entrys": [],
   "categories": [
     {
       "id": "0",
-      "name": "Essenciais"
+      "name": "Essenciais",
+      "type": "2"
     },
     {
       "id": "1",
-      "name": "Lazer"
+      "name": "Lazer",
+      "type": "2"
     },
     {
       "id": "2",
-      "name": "Metas"
+      "name": "Metas",
+      "type": "2"
     },
     {
-      "id": "6ca78e17-9b8f-490f-99f5-6b55bf57788b",
-      "name": "Testes"
+      "id": "408fd3ad-2a1d-47f2-9bf9-8a3ff8f7698e",
+      "name": "Teste"
+    }
+  ],
+  "store": [
+    {
+      "id": "0",
+      "name": "Padaria"
+    },
+    {
+      "id": "1",
+      "name": "Mercado"
+    },
+    {
+      "id": "2",
+      "name": "Cinema"
     }
   ]
 }
