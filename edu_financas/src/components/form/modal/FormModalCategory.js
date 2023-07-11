@@ -10,7 +10,7 @@ function FormModalCategory({ title, clickSave, value, options, handleOnChange}) 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const {name} = value || {name: ''}; // se value for nulo, o name será nulo
+    const {name, type} = value || {name: ''}; // se value for nulo, o name será nulo
 
     return(
         <>
@@ -39,6 +39,8 @@ function FormModalCategory({ title, clickSave, value, options, handleOnChange}) 
                     label="Tipo"
                     name="tipo"
                     options={options}
+                    value={type}
+                    handleOnChange={e => handleOnChange({...value, type: e.target.value})}
                 />
                 </Modal.Body>
                 <Modal.Footer>

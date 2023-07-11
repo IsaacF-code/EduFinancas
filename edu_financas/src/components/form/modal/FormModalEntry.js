@@ -4,8 +4,8 @@ import FormInput from '../inputs/FormInput.js'
 import FormInputCurrency from '../inputs/FormInputCurrency.js';
 import FormSelect from '../select/FormSelect.js';
 
-function FormModalEntry({ title, clickSave, value, typeOption, categoryOption, showModal, closeModal, handleOnChange}) {
-    const {entrada, valor, tipo, estabelecimento, categoria} = value || {};
+function FormModalEntry({ title, clickSave, value, categoryOption, showModal, closeModal, handleOnChange}) {
+    const {entrada, valor, estabelecimento, categoria} = value || {};
 
     return(
         <>
@@ -27,13 +27,6 @@ function FormModalEntry({ title, clickSave, value, typeOption, categoryOption, s
                     name="valor"
                     value={valor}
                     handleOnChange={e => handleOnChange({...value, valor: e.target.value})}
-                />
-                <FormSelect 
-                    label="Selecione o tipo"
-                    name="entrada"
-                    options={typeOption}
-                    value={tipo ? tipo : ''}
-                    handleOnChange={e => handleOnChange({...value, tipo: e.target.value})}
                 />
                 <FormSelect 
                     label="Selecione a categoria"

@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 import styles from './FormSelect.module.css';
 import { useId } from "react";
 
-function FormSelect({ name, label, options, value,  handleOnChange }) {
+function FormSelect({ name, label, options, value, defaultValue, handleOnChange }) {
     const id = useId()
     return(
         <>
@@ -11,10 +11,11 @@ function FormSelect({ name, label, options, value,  handleOnChange }) {
                 <Form.Select
                     value={value || undefined}
                     onChange={handleOnChange}
+                    defaultValue={defaultValue}
                 >
                     <option>Selecione uma opção</option>
                     {options?.map(option => (
-                        <option value={option.id} key={option.id}>
+                        <option key={option.id}>
                             {option.name}
                         </option>
                     ))}

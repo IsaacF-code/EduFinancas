@@ -24,7 +24,8 @@ function FormTableCategory({ striped, bordered, hover, size, variant, data, onEd
     const itemTable = data.map((value) => (
         <ItemTableCategory
             key={value.id} 
-            name={value.name}  
+            name={value.name}
+            type={value.type}  
             data={value} 
             onEdit={onEdit} 
             onDelete={onDelete} 

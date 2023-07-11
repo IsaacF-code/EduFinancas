@@ -1,9 +1,10 @@
 import { Modal } from 'react-bootstrap';
 import FormButton from '../button/FormButton.js';
 import FormInput from '../inputs/FormInput.js'
+import FormSelect from '../select/FormSelect.js';
 
-function FormModalEditCategory({ title, clickSave, handleOnEdit, showModal, closeModal, value}) {
-    const {name} = value || {};
+function FormModalEditCategory({ title, clickSave, options, handleOnEdit, showModal, closeModal, value}) {
+    const {name, type} = value || {};
 
     return(
         <>
@@ -19,6 +20,13 @@ function FormModalEditCategory({ title, clickSave, handleOnEdit, showModal, clos
                     placeholder="Digite a categoria"
                     defaultValue={name}
                     handleOnChange={e => handleOnEdit({name: e.target.value})}
+                />
+                <FormSelect
+                    label="Tipo"
+                    name="tipo"
+                    options={options}
+                    defaultValue={type}
+                    handleOnChange={e => handleOnEdit({type: e.target.value})}
                 />
                 </Modal.Body>
                 <Modal.Footer>

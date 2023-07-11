@@ -24,25 +24,10 @@ function Entrada(){
 
  // --------------------------------------------------------------------
 
- const [type, setType] = useState([]);
-
-    useEffect(() => {
-        fetch('http://localhost:5000/type', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then((res) => res.json()).then((data) => setType(data))
-        .catch((err) => console.log(err));
-    }, []);
-
- // --------------------------------------------------------------------
-
  const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/categories', {
+        fetch('http://localhost:5000/categories_receita', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -82,7 +67,7 @@ function Entrada(){
 
     useEffect(() => { // useEffect para salvar no banco de dados
         if(aoClick){
-            fetch('http://localhost:5000/categories', {
+            fetch('http://localhost:5000/categories_receita', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -125,7 +110,7 @@ function Entrada(){
     }
 
     const handleEdit = () => {
-        fetch(`http://localhost:5000/categories/${categoryEdit.id}`, {
+        fetch(`http://localhost:5000/categories_receita/${categoryEdit.id}`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -158,7 +143,7 @@ function Entrada(){
     }
 
     const handleDelete = () => {
-        fetch(`http://localhost:5000/categories/${categoryDelete.id}`, {
+        fetch(`http://localhost:5000/categories_receita/${categoryDelete.id}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -184,7 +169,6 @@ function Entrada(){
             <FormModalEntry
                 title="Cadastrar entrada" 
                 value={entryName}
-                typeOption={type}
                 categoryOption={categories}
                 showModal={showModal}
                 closeModal={() => setShowModal(false)}

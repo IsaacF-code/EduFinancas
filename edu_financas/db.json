@@ -10,25 +10,33 @@
     }
   ],
   "entrys": [],
-  "categories": [
+  "categories_receita": [
+    {
+      "id": "1",
+      "name": "Salário",
+      "type": "Receita"
+    },
+    {
+      "id": "d5c12995-213e-492c-9234-52752ccd7f36",
+      "name": "Educação",
+      "type": "Receita"
+    }
+  ],
+  "categories_despesa": [
     {
       "id": "0",
       "name": "Essenciais",
-      "type": "2"
+      "type": "Despesa"
     },
     {
       "id": "1",
       "name": "Lazer",
-      "type": "2"
+      "type": "Despesa"
     },
     {
       "id": "2",
       "name": "Metas",
-      "type": "2"
-    },
-    {
-      "id": "408fd3ad-2a1d-47f2-9bf9-8a3ff8f7698e",
-      "name": "Teste"
+      "type": "Despesa"
     }
   ],
   "store": [

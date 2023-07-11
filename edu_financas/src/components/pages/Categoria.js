@@ -12,7 +12,7 @@ function Categoria(){
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/categories', {
+        fetch('http://localhost:5000/categories_receita', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -21,6 +21,19 @@ function Categoria(){
         .then((res) => res.json()).then((data) => setCategories(data))
         .catch((err) => console.log(err));
     }, []);
+
+    const [categoriesDespesa, setCategoriesDespesa] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/categories_despesa', {
+            method: 'GET', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then((res) => res.json()).then((data) => setCategoriesDespesa(data))
+        .catch((err) => console.log(err));
+    }, [])
 
     // --------------------------------------------------------------------
     // State para pegar os tipos de categoria
@@ -40,12 +53,13 @@ function Categoria(){
 
  // --------------------------------------------------------------------
 
-    const [categoryName, setCategoryName] = useState({ name: '' });
+    const [categoryName, setCategoryName] = useState({ name: '', type: '' });
     const [aoClick, setAoClick] = useState(false); // variável para executar o useEffect quando clicar no botão salvar
+    const [table, setTable] = useState('') // variável para mudar a tabela de categorias
 
     useEffect(() => { // useEffect para salvar no banco de dados
         if(aoClick){
-            fetch('http://localhost:5000/categories', {
+            fetch(`http://localhost:5000/${table}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -53,23 +67,42 @@ function Categoria(){
                 body: JSON.stringify(categoryName)
             })
             .then((res) => res.json()).then((data) => {
-                setCategories([...categories, data]); // atualiza o estado com o novo dado
-                setCategoryName('');
-                setAoClick(false);
+                if(categoryName.type === 'Despesa'){
+                    fetch('http://localhost:5000/categories_despesa')
+                    .then((res) => res.json())
+                    .then((categoriesDespesa) => {
+                        setCategoriesDespesa(categoriesDespesa);
+                        setCategoryName({ name: '', type: 'Selecione uma opção' });
+                        setAoClick(false);
+                    })
+                    .catch((err) => console.log(err))
+                } else {
+                    setCategories([...categories, data]); // atualiza o estado com o novo dado
+                    setCategoryName({ name: '', type: 'Selecione uma opção' });
+                    setAoClick(false);
+                }
             })
             .catch((err) => console.log(err));
         }   
-    }, [categories, aoClick, categoryName])
+    }, [categories, aoClick, categoryName, table]);
 
     const handlerClick = (e) => {
         e.preventDefault();
             
-        let camposComValores = categoryName.name.length > 0;
+        let camposComValores = categoryName.name.length > 0 && categoryName.type.length > 0;
         if (camposComValores) {
             let novaCategoria = {
-                id: uuid(), name: categoryName.name
+                id: uuid(), name: categoryName.name, type: categoryName.type
             };
             setCategoryName(novaCategoria);
+            
+            // Verifica se o tipo de categoria é receita ou despesa
+            if(categoryName.type === 'Receita'){
+                setTable('categories_receita');
+            } else if (categoryName.type === 'Despesa') {
+                setTable('categories_despesa');
+            }
+            
             setAoClick(true); // seta a variável para true para executar o useEffect
         } else {
             alert('Preencha todos os campos!');
@@ -88,7 +121,7 @@ function Categoria(){
     }
 
     const handleEdit = () => {
-        fetch(`http://localhost:5000/categories/${categoryEdit.id}`, {
+        fetch(`http://localhost:5000/categories_receita/${categoryEdit.id}`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -109,7 +142,39 @@ function Categoria(){
         setShowModalEdit(false);
     }
 
+    // ------------------------- Edit Despesa ------------------------------------
+    
+    const [showModalEditD, setShowModalEditD] = useState(false);
+    const [categoryEditD, setCategoryEditD] = useState(null);
 
+    const handleCategoryEditD = (category) => {
+        setCategoryEditD((prevState) => ({ ...prevState, ...category}));
+        setShowModalEditD(true);
+    }
+
+    const handleEditD = () => {
+        fetch(`http://localhost:5000/categories_despesa/${categoryEditD.id}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(categoryEditD)
+          })
+            .then((resp) => resp.json())
+            .then((data) => {
+                const pegaIdLista = categoriesDespesa.map(item => {
+                    if(item.id === categoryEditD.id){
+                        return categoryEditD;
+                    } else {
+                        return item;
+                    }
+                })
+                setCategoriesDespesa(pegaIdLista)
+            })
+        setShowModalEditD(false);
+    }
+    
+   
     // ------------------------- Delete ------------------------------------
     
     const [showModalConfirm, setShowModalConfirm] = useState(false);
@@ -121,7 +186,7 @@ function Categoria(){
     }
 
     const handleDelete = () => {
-        fetch(`http://localhost:5000/categories/${categoryDelete.id}`, {
+        fetch(`http://localhost:5000/categories_receita/${categoryDelete.id}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
@@ -134,6 +199,29 @@ function Categoria(){
             setShowModalConfirm(false);
         }
    
+        // ------------------------- Delete Despesa ------------------------------------
+    
+    const [showModalConfirmD, setShowModalConfirmD] = useState(false);
+    const [categoryDeleteD, setCategoryDeleteD] = useState(null)
+    
+    const handleCategoryDeleteD = (category) => {
+        setCategoryDeleteD(category);
+        setShowModalConfirmD(true);
+    }
+    
+    const handleDeleteD = () => {
+        fetch(`http://localhost:5000/categories_despesa/${categoryDeleteD.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+                setCategoriesDespesa(categoriesDespesa.filter((category) => category.id !== categoryDeleteD.id))
+            })
+            setShowModalConfirmD(false);
+    }
 
     return (
         <div className={styles.home_container}>
@@ -153,19 +241,43 @@ function Categoria(){
                 onEdit={handleCategoryEdit}
                 onDelete={handleCategoryDelete}
             />
+            <FormTableCategory 
+                bordered="bordered"
+                striped="striped"
+                hover="hover"
+                data={categoriesDespesa}
+                onEdit={handleCategoryEditD}
+                onDelete={handleCategoryDeleteD}
+            />
             <FormModalEditCategory 
                 title="Editar categoria"
                 value={categoryEdit}
+                options={type}
                 handleOnEdit={handleCategoryEdit}
                 showModal={showModalEdit}
                 closeModal={() => setShowModalEdit(false)}
                 clickSave={handleEdit}
             />
-             <FormModalConfirm  
+            <FormModalEditCategory 
+                title="Editar categoria"
+                value={categoryEditD}
+                options={type}
+                handleOnEdit={handleCategoryEditD}
+                showModal={showModalEditD}
+                closeModal={() => setShowModalEditD(false)}
+                clickSave={handleEditD}
+            />
+            <FormModalConfirm  
                 title={`Deseja apagar ${categoryDelete?.name}?`}
                 showModal={showModalConfirm}
                 closeModal={() => setShowModalConfirm(false)}
                 clickSave={handleDelete}
+            />
+            <FormModalConfirm  
+                title={`Deseja apagar ${categoryDeleteD?.name}?`}
+                showModal={showModalConfirmD}
+                closeModal={() => setShowModalConfirmD(false)}
+                clickSave={handleDeleteD}
             />
         </div>
     )
